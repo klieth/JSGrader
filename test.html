@@ -1,0 +1,161 @@
+<HTML>
+<head>
+<meta charset="UTF-8">
+<title>Text Field Input Template</title>
+
+<script type=text/javascript>
+
+"use strict";
+
+function myMain (inFieldText, convTypeText) {
+  // SOME OF YOUR CODE GOES IN HERE
+  // as the body of the main function.  This is the function that
+  // executes when the 'run' button is clicked
+
+  // inFieldText 
+  //    is the 'number' the user types to be converted
+  //    it is a string (coming from the text field on the Web page)
+  //    valid values depend on the function selected, but it is a number
+  //    valid ranges depend on the function selected
+  //    valid formats also vary by function... some real, some integer
+
+  // convTypeText 
+  //    is the radio button item that tells what function to execute
+  //    valid values are "ft2in" "f2c" "lb2kg" "npsum" and no others
+
+  // --------------------------------------------------
+  // bones of the function follow
+  // --------------------------------------------------
+  
+  // validate user html text inputs
+  // note that different functions need different validation	
+
+  // maybe convert the inFieldText to number
+
+  // decide which function we need to invoke
+  // and send in at least the number input	
+  // switch statement?
+
+  // return the value of the proper function
+
+  return convTypeText+":"+inFieldText ;
+}
+
+// SOME OF YOUR CODE GOES OUT HERE
+// you will write helper functions and put here after function myMain
+
+function isPrime ( num ) {
+  // we are supplying this function for you to use in computing
+  // the sum of non-primes
+  // you pass in an integer:
+  //   it sends back true if that integer is prime
+  //   it sends back false if that integer is not prime 
+  if (isNaN(num) || !isFinite(num) || num%1 || num<2) return false; 
+  if (num%2==0) return (num==2);
+  var sqrtNum=Math.sqrt(num);
+  for ( var i=3; i<=sqrtNum; i+=2 ) {
+     if (num%i==0) return false;
+  }
+  return true;
+}
+
+</script>
+
+</head>
+
+<body>
+
+<h1>Text Field Input Template</h1>
+
+<!-- ------------------------------------------------------------ -->
+<!-- dont mess with the HTML below in the "form" tag pair         -->
+<!-- ------------------------------------------------------------ -->
+
+<form name="dForm">
+
+What conversion do you want ? 
+<input type=text name="conType" value=" ">
+<i>(dont write here, let the radio buttons do it)</i>
+<ul>
+<input type="radio" name="cType" value="ft2in" 
+onclick="document.dForm.conType.value=document.dForm.cType[0].value"
+>Feet to Inches
+<br/>
+<input type="radio" name="cType" value="f2c"
+onclick="document.dForm.conType.value=document.dForm.cType[1].value"
+>Fahrenheit to Celsius
+<br/>
+<input type="radio" name="cType" value="lb2kg"
+onclick="document.dForm.conType.value=document.dForm.cType[2].value"
+>Pounds to Kilograms 
+<br/>
+<input type="radio" name="cType" value="npsum"
+onclick="document.dForm.conType.value=document.dForm.cType[3].value"
+>non prime sum
+</ul>
+
+<br/>
+Convert what value? <input type=text name="inField" value=" ">
+
+<input type=button value="Convert it !" 
+       onclick = "document.dForm.outField.value = 
+                     myMain ( 
+                        document.dForm.inField.value,
+                        document.dForm.conType.value
+                     ); "
+>
+<br/>
+<br/>
+Conversion is: <input type=text name="outField" size=60 value=" " >
+</form>
+
+<!-- ------------------------------------------------------------ -->
+<!-- dont mess with the HTML above in the "form" tag pair         -->
+<!-- ------------------------------------------------------------ -->
+
+<h2>Program Description</h2>
+<p>
+We are going to move away from input via "prompt" and output via "alert".
+Those are fine for smaller interactive programs, or for occasional use.
+But for many web pages input comes from text fields on the page.
+Often output is reported similarly, in text fields on the page.
+(Another way is to write a completely new web page, but we will
+save that for later).
+</p>
+<p>
+In other programming languages it is not unusual for input data
+to come from files stored on the hard drive.
+JavaScript can do this too, but many JavaScript programs are
+intended for use in Webpages, so file use is not nearly as
+common in JavaScript as in other languages.
+</p>
+<p>
+<b>In this program we will type input values into text fields on
+the web page (see above).
+</b>
+Then when the "run" button is clicked, the values we typed will
+be transmitted to your JavaScript main function as arguments.
+This means your program will have some things to do right at
+the beginning, no matter what else it will eventually do:
+<ul>
+<li>validate each input argument to make sure it is the right 
+    type, range, and format
+</li>
+<li>
+form an appropriate response and send it back to the web page
+(via "return")
+</li>
+</ul>
+</p>
+
+<h2>Input</h2>
+Describe the input expected from the user in the input fields.
+<h2>Output</h2>
+Describe the output that the program produces, and where it is
+(will it be text fields on the page? Alerts? A new web page?).
+<h2>Termination</h2>
+How does the program end?
+
+</body>
+
+</HTML>

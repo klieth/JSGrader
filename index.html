@@ -8,23 +8,10 @@
 }
 		</style>
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-		<script>
-$(function() {
-	var page = $('#page');
-	console.log('setting load function');
-	page.load(function() {
-		page.contents().find('[name=conType]').val("ft2in");
-		page.contents().find('[name=inField]').val("2");
-		page.contents().find('[type=button]').click();
-	});
-	console.log('setting src attr');
-	page.attr('src','http://localhost:3131/file/test.html');
-});
-		</script>
+		<script src="file/run.js"></script>
 	</head>
 	<body>
-		<div><p>Testing...</p></div>
+		<div><p id="status">Testing...</p></div>
 		<iframe id="page"></iframe>
-		<!--<iframe id="page" src="http://localhost:3131/test.html"></iframe>-->
 	</body>
 </html>

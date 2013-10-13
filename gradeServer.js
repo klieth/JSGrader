@@ -5,6 +5,12 @@ var fs = require('fs');
 
 var port = 3131;
 
+if (fs.existsSync("log.txt")) {
+	fs.unlinkSync("log.txt");
+	console.log("deleted log file");
+}
+var log = fs.createWriteStream('log.txt', {'flags': 'a'});
+
 http.createServer(function(request, response) {
 	console.log("----------");
 	console.log("method = " + request.method);
@@ -101,6 +107,7 @@ http.createServer(function(request, response) {
 						response.end();
 						return;
 					}
+					response.writeHead(200, {'Content-type':'text/html'});
 					response.write(data,'binary');
 					response.end();
 					return;
@@ -116,7 +123,8 @@ http.createServer(function(request, response) {
 					return;
 				}
 				for (var i = 0; i < files.length; i++) {
-					if (files[i].indexOf("gradebook") > 0) continue;
+					if (files[i].indexOf("grade") > 0) continue;
+					if (files[i].indexOf("Aponte") > 0) continue;
 					toGrade.push(files[i]);
 				}
 				response.writeHead(200, {'Content-Type':'application/json'});   
@@ -134,6 +142,7 @@ http.createServer(function(request, response) {
 			console.log("POST data filled");
 			console.log("POST: " + Object.keys(POST));
 			console.log("value: " + POST.val);
+			log.write(POST.val + "\n");
 		} else {
 			response.write("Command not recognized.\nTry again with localhost:" + port + "/test.");
 			response.end();

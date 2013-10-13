@@ -1,4 +1,4 @@
 tests/*
+old/*
 *.swp
 log.txt
-out/*

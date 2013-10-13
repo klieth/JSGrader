@@ -1,2 +1,4 @@
 tests/*
 *.swp
+log.txt
+out/*

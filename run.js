@@ -35,12 +35,18 @@ $(function() {
 			writer.print("ALERT used: " + data);
 			console.log(data);
 		};
-		page.contents().find('[name=conType]').val("ft2in");
-		page.contents().find('[name=inField]').val("2");
-		page.contents().find('[type=button]').click();
-		var ret = page.contents().find('[name=outField]').val();
-		console.log(ret);
-		writer.print(ret);
+		var tests = [
+			{"key":"ft2in","val":"2"},
+			{"key":"f2c","val":"32"}
+		];
+		for (var i = 0; i < tests.length; i++) {
+			page.contents().find('[name=conType]').val(tests[i].key);
+			page.contents().find('[name=inField]').val(tests[i].val);
+			page.contents().find('[type=button]').click();
+			var ret = page.contents().find('[name=outField]').val();
+			console.log(ret);
+			writer.print(ret);
+		}
 		//writer.print(page.contents().find('[name=outField]').val());
 		writer.send();
 	});
@@ -53,5 +59,5 @@ $(function() {
 		index++;
 		if (index >= files.length) clearInterval(testing);
 	}
-	testing = setInterval(kickoff,3000);
+	testing = setInterval(kickoff,2000);
 });

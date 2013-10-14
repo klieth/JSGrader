@@ -123,9 +123,9 @@ http.createServer(function(request, response) {
 					return;
 				}
 				for (var i = 0; i < files.length; i++) {
-					if (files[i].indexOf("grade") > 0) continue;
-					if (files[i].indexOf("Aponte") > 0) continue;
-					toGrade.push(files[i]);
+					if (files[i].indexOf("grade") < 0) {
+						toGrade.push(files[i]);
+					}
 				}
 				response.writeHead(200, {'Content-Type':'application/json'});   
 				response.write(JSON.stringify(toGrade));
@@ -135,14 +135,17 @@ http.createServer(function(request, response) {
 		} else if (cmd == "echo") {
 			console.log("cmd == echo");
 			if (!POST) {
+				console.log("Post data not filled");
 				response.write("Post data was not filled");
-				repsonse.end();
+				response.end();
 				return;
 			}
 			console.log("POST data filled");
 			console.log("POST: " + Object.keys(POST));
 			console.log("value: " + POST.val);
 			log.write(POST.val + "\n");
+			response.end();
+			return;
 		} else {
 			response.write("Command not recognized.\nTry again with localhost:" + port + "/test.");
 			response.end();

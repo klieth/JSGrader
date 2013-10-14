@@ -2,3 +2,4 @@ tests/*
 old/*
 *.swp
 log.txt
+*results*

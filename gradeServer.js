@@ -4,12 +4,39 @@ var qs = require('querystring');
 var fs = require('fs');
 
 var port = 3131;
+var logfile = "log.txt";
+var testfile = "tests.json";
 
-if (fs.existsSync("log.txt")) {
-	fs.unlinkSync("log.txt");
-	console.log("deleted log file");
+for (var i = 0; i < process.argv.length; i++) {
+	if (process.argv[i] == "-p" || process.argv[i] == "--port") {
+		i++;
+		if (isNaN(process.argv[i])) {
+			console.log("Must specify a port number after " + process.argv[i-1]);
+			process.exit();
+		}
+		port = Number(process.argv[i+1]);
+	} else if (process.argv[i] == "-t" || process.argv[i] == "--test-file") {
+		i++;
+		if (process.argv[i].indexOf("-") == 0) {
+			console.log("Must specify the tests filename after " + process.argv[i-1]);
+			process.exit();
+		}
+		testfile = process.argv[i];
+	} else if (process.argv[i] == "-l" || process.argv[i] == "--log-file") {
+		i++;
+		if (process.argv[i].indexOf("-") == 0) {
+			console.log("Must specify the log filename after " + process.argv[i-1]);
+			process.exit();
+		}
+		logfile = process.argv[i];
+	}
 }
-var log = fs.createWriteStream('log.txt', {'flags': 'a'});
+
+if (fs.existsSync(logfile)) {
+	fs.unlinkSync(logfile);
+	console.log("deleted old log file: " + logfile);
+}
+var log = fs.createWriteStream(logfile, {'flags': 'a'});
 
 http.createServer(function(request, response) {
 	console.log("----------");
@@ -146,8 +173,23 @@ http.createServer(function(request, response) {
 			log.write(POST.val + "\n");
 			response.end();
 			return;
+		} else if (cmd == "tests") {
+			console.log("cmd == tests");
+			console.log("Test file = " + testfile);
+			fs.readFile(testfile,'binary', function(err,data) {
+				if (err) {
+					response.write("Error reading tests file");
+					response.end();
+					return;
+				}
+				response.writeHead(200, {'Content-type':'application/json'});
+				console.log("Sending: " + data);
+				response.write(data,'binary');
+				response.end();
+				return;
+			});
 		} else {
-			response.write("Command not recognized.\nTry again with localhost:" + port + "/test.");
+			response.write("Command not recognized.\nTry again with <a href=\"localhost:"+port+"/test\">localhost:" + port + "/test</a> .");
 			response.end();
 			return;
 		}

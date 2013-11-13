@@ -21,9 +21,31 @@ function stop() {
 	clearInterval(testing);
 }
 
+
+$(function() {
+	$.get("/tests", function (data, text) {
+		var allNumbers = text.split(" ");
+		for (var i = 0; i < allNumbers.length; i++) {
+			allNumbers[i] = Number(allNumbers[i]);
+		}
+		$('div.myNumbers').innerHTML(text);
+	});
+
+	$.post("/tests", function (data, text) {
+		$('input[name=myNumbers]').innerHTML(text);
+	});
+});
+
 $(function() {
 	var index = 0;
 	var files = null;
+	var tests = null;
+	$.get("/tests", function (data) {
+		tests = data;
+		console.log("TEST DATA:");
+		console.log(JSON.stringify(data));
+		console.log("----------");
+	});
 	$.get("/list", function (data) {
 		files = data;
 		console.log("files: " + JSON.stringify(files));
@@ -31,19 +53,24 @@ $(function() {
 	var page = $('#page');
 	page.load(function() {
 		page[0].contentWindow.alert = function(data) {
-			//$.post("/echo",{val:"ALERT used: " + data});
 			writer.print("ALERT used: " + data);
 			console.log(data);
 		};
-		var tests = [
-			{"key":"ft2in","val":"2"},
-			{"key":"f2c","val":"32"}
-		];
 		for (var i = 0; i < tests.length; i++) {
+			for (var j = 0; j < tests[i].input.length; j++) {
+				page.contents().find('[name=' + tests[i].input[j].key + ']').val(tests[i].input[j].val);
+			}
+			/*
 			page.contents().find('[name=conType]').val(tests[i].key);
 			page.contents().find('[name=inField]').val(tests[i].val);
+			*/
 			page.contents().find('[type=button]').click();
-			var ret = page.contents().find('[name=outField]').val();
+			var ret = page.contents().find('[name=outFieldA]').val();
+			if (tests[i].output == "error") {
+				ret = "Should be ERROR: " + ret;
+			} else if (ret.indexOf(tests[i].output) > -1) {
+				ret = "CORRECT: " + ret;
+			}
 			console.log(ret);
 			writer.print(ret);
 		}

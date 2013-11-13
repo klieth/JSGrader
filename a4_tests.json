@@ -1,0 +1,51 @@
+[
+	{
+		"input": [
+			{"key":"inFieldA", "val":30},
+			{"key":"inFieldB", "val":2}
+		],
+		"output" : 23
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":47},
+			{"key":"inFieldB", "val":5}
+		],
+		"output" : 31
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":10},
+			{"key":"inFieldB", "val":9}
+		],
+		"output" : "error"
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":1},
+			{"key":"inFieldB", "val":0}
+		],
+		"output" : "error"
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":3},
+			{"key":"inFieldB", "val":-1}
+		],
+		"output" : "error"
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":1820},
+			{"key":"inFieldB", "val":7}
+		],
+		"output" : 1759
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":2287},
+			{"key":"inFieldB", "val":1}
+		],
+		"output" : 2287
+	}
+]

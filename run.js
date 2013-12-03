@@ -22,6 +22,7 @@ function stop() {
 }
 
 
+/*
 $(function() {
 	$.get("/tests", function (data, text) {
 		var allNumbers = text.split(" ");
@@ -35,6 +36,7 @@ $(function() {
 		$('input[name=myNumbers]').innerHTML(text);
 	});
 });
+*/
 
 $(function() {
 	var index = 0;
@@ -45,6 +47,9 @@ $(function() {
 		console.log("TEST DATA:");
 		console.log(JSON.stringify(data));
 		console.log("----------");
+	}).fail(function (e) {
+		console.log("error getting tests");
+		console.log(e);
 	});
 	$.get("/list", function (data) {
 		files = data;
@@ -58,21 +63,26 @@ $(function() {
 		};
 		for (var i = 0; i < tests.length; i++) {
 			for (var j = 0; j < tests[i].input.length; j++) {
+				writer.print("Testing: " + tests[i].input[j].val);
 				page.contents().find('[name=' + tests[i].input[j].key + ']').val(tests[i].input[j].val);
 			}
-			/*
-			page.contents().find('[name=conType]').val(tests[i].key);
-			page.contents().find('[name=inField]').val(tests[i].val);
-			*/
 			page.contents().find('[type=button]').click();
-			var ret = page.contents().find('[name=outFieldA]').val();
-			if (tests[i].output == "error") {
-				ret = "Should be ERROR: " + ret;
-			} else if (ret.indexOf(tests[i].output) > -1) {
-				ret = "CORRECT: " + ret;
+			for (var j = 0; j < tests[i].output.length; j++) {
+				var out = tests[i].output[j];
+				var ret = page.contents().find('[name=' + out.key + ']').val();
+				if (out.val == "error") {
+					if (out.errmsg) {
+						ret = "Should be \"ERROR: " + out.errmsg + "\" :: " + ret;
+					} else {
+						ret = "Should be ERROR: " + ret;
+					}
+				} else if (ret.indexOf(out.val) > -1) {
+					ret = "CORRECT: " + ret;
+				}
+				console.log(ret);
+				writer.print(ret);
 			}
-			console.log(ret);
-			writer.print(ret);
+			//var ret = page.contents().find('[name=outFieldA]').val();
 		}
 		//writer.print(page.contents().find('[name=outField]').val());
 		writer.send();
@@ -86,5 +96,5 @@ $(function() {
 		index++;
 		if (index >= files.length) clearInterval(testing);
 	}
-	testing = setInterval(kickoff,2000);
+	testing = setInterval(kickoff,1500);
 });

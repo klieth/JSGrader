@@ -1,0 +1,50 @@
+[
+	{
+		"input": [
+			{"key":"inFieldA", "val":"break"}
+		],
+		"output" : [
+			{"key":"outFieldA", "val":0}
+		]
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":"yield"}
+		],
+		"output" : [
+			{"key":"outFieldA", "val":44}
+		]
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":"in"}
+		],
+		"output" : [
+			{"key":"outFieldA", "val":21}
+		]
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":"extra"}
+		],
+		"output" : [
+			{"key":"outFieldA", "val":"error", "errmsg":"not found"}
+		]
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":"with space"}
+		],
+		"output" : [
+			{"key":"outFieldA", "val":"error", "errmsg":"invalid: space"}
+		]
+	},
+	{
+		"input": [
+			{"key":"inFieldA", "val":""}
+		],
+		"output" : [
+			{"key":"outFieldA", "val":"error", "errmsg":"invalid: no word specified"}
+		]
+	}
+]

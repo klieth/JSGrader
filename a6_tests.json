@@ -1,0 +1,65 @@
+[
+	{
+		"input": [
+			{"key":"inField1", "val":"instanceof"}
+		],
+		"output" : [
+			{"key":"outField1", "val":22},
+			{"key":"outField2", "val":1}
+		]
+	},
+	{
+		"input": [
+			{"key":"inField1", "val":"enum"}
+		],
+		"output" : [
+			{"key":"outField1", "val":11},
+			{"key":"outField2", "val":2}
+		]
+	},
+	{
+		"input": [
+			{"key":"inField1", "val":"class"}
+		],
+		"output" : [
+			{"key":"outField1", "val":3},
+			{"key":"outField2", "val":5}
+		]
+	},
+	{
+		"input": [
+			{"key":"inField1", "val":"break"}
+		],
+		"output" : [
+			{"key":"outField1", "val":0},
+			{"key":"outField2", "val":6}
+		]
+	},
+	{
+		"input": [
+			{"key":"inField1", "val":"yield"}
+		],
+		"output" : [
+			{"key":"outField1", "val":44},
+			{"key":"outField2", "val":7}
+		]
+	},
+	{
+		"input": [
+			{"key":"inField1", "val":"until"}
+		],
+		"output" : [
+			{"key":"outField1", "val":"error", "errmsg":"not found"},
+			{"key":"outField2", "val":8}
+		]
+	},
+	{
+		"input": [
+			{"key":"inField1", "val":"type"}
+		],
+		"output" : [
+			{"key":"outField1", "val":"error", "errmsg":"not found"},
+			{"key":"outField2", "val":7}
+		]
+	}
+]

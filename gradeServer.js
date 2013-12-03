@@ -4,8 +4,17 @@ var qs = require('querystring');
 var fs = require('fs');
 
 var port = 3131;
-var logfile = "log.txt";
-var testfile = "tests.json";
+var logfile;
+var testfile;
+
+var help = "Usage: node gradeServer.js -t [test file] -l [log file] [options]";
+help += "\nAvailable options:";
+help += "\n\t-p --port Specify an alternate port to use (default " + port + ")";
+
+if (process.argv.length == 2) {
+	console.log(help);
+	process.exit();
+}
 
 for (var i = 0; i < process.argv.length; i++) {
 	if (process.argv[i] == "-p" || process.argv[i] == "--port") {
@@ -22,6 +31,7 @@ for (var i = 0; i < process.argv.length; i++) {
 			process.exit();
 		}
 		testfile = process.argv[i];
+		console.log("Using " + testfile + " for tests");
 	} else if (process.argv[i] == "-l" || process.argv[i] == "--log-file") {
 		i++;
 		if (process.argv[i].indexOf("-") == 0) {
@@ -29,7 +39,16 @@ for (var i = 0; i < process.argv.length; i++) {
 			process.exit();
 		}
 		logfile = process.argv[i];
+		console.log("Using " + logfile + " for log");
+	} else if (process.argv[i] == "-h" || process.argv[i] == "--help") {
+		console.log(help);
+		process.exit();
 	}
+}
+
+if (!logfile || !testfile) {
+	console.log("Must specify logfile and testfile");
+	process.exit();
 }
 
 if (fs.existsSync(logfile)) {

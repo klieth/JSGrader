@@ -1,0 +1,37 @@
+{
+	"inputId":"inFieldA",
+	"rawData":"6\n1#John Smith#8#147#43#21#17#8\n2#Adam Jones#6#56#20#9#13#4",
+	"data": [
+			{
+				"id":1,
+				"name":"John Smith",
+				"games":8,
+				"mins":147,
+				"fga":43,
+				"fgm":21,
+				"fta":17,
+				"ftm":8,
+				"totalPts":50,
+				"fgPct":0.48,
+				"ftPct":0.47,
+				"minsPerGame":18.37,
+				"ptsPerMin":0.34,
+				"ptsPerGame":6.25
+			},{
+				"id":2,
+				"name":"Adam Jones",
+				"games":6,
+				"mins":56,
+				"fga":20,
+				"fgm":9,
+				"fta":13,
+				"ftm":4,
+				"totalPts":22,
+				"fgPct":0.45,
+				"ftPct":0.3,
+				"minsPerGame":9.33,
+				"ptsPerMin":0.39,
+				"ptsPerGame":3.66
+			}
+		]
+}
